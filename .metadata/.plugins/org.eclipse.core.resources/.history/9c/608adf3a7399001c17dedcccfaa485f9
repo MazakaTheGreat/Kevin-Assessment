@@ -1,0 +1,96 @@
+package calculator.rms.reader;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class RMSCalculator {
+
+	static String lineReader = ""; 
+	public static ArrayList<String> list;
+	
+	public static void ReadFileAndGetRMS() 
+	{
+			try 
+			{
+				String allNumbers = "";
+				File scanner = new File("input.txt");
+				BufferedReader br = new BufferedReader(new FileReader(scanner));
+				list = new ArrayList<String>();
+				try {
+					
+					while ((lineReader = br.readLine()) != null) 
+					{		
+						
+						int lineLength = lineReader.length();
+						int characterCounter = 0;
+						
+						while(lineLength > 0)
+						{
+							if(CheckString(lineReader.toString().charAt(characterCounter)))
+							{
+								allNumbers += (""+lineReader.toString().charAt(characterCounter));
+								System.out.println(lineReader.toString().charAt(characterCounter));
+							}
+							
+							lineLength--;
+							characterCounter++;
+						}
+						
+						list.add(allNumbers);
+						
+					
+					}
+					
+					System.out.println(allNumbers);
+					
+				}catch(Exception e) 
+				{
+					e.printStackTrace();
+				}
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	public static Boolean CheckString(char c) 
+	{
+		boolean result = true;
+		
+		try 
+		{ 
+			Integer.parseInt(String.valueOf(c)); 
+		}  
+		catch (NumberFormatException e)  
+		{ 
+			result = false;
+		} 
+		
+		return result;
+	}
+	
+	public static Boolean CheckSign(char input) 
+	{
+		boolean result = false;
+		
+		if(input == '-'|| input == '+') 
+		{
+			result = true;
+		}
+		return result;
+	}
+		
+	public static void main(String[] args) {
+
+		ReadFileAndGetRMS();
+	}
+
+}
